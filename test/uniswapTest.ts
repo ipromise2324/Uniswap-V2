@@ -8,9 +8,9 @@ describe("TestUniswap", function () {
   let tokenOut: IERC20;
   const AMOUNT_IN = 100000000;
   const AMOUNT_OUT_MIN = 1;
-  const daiAddress = "0x6B175474E89094C44Da98b954EedeAC495271d0F"; // Toekn In (DAI)
+  const daiAddress = "0x6B175474E89094C44Da98b954EedeAC495271d0F"; // Toekn Out (DAI)
   const wBtcHolderAddreess = "0x1Cb17a66DC606a52785f69F08F4256526aBd4943" //WBTC Whale
-  const wBtcAddress = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599" // Token out (WBTC)
+  const wBtcAddress = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599" // Token In (WBTC)
   const TO = "0x843d94DE63012B1aB9d27E776A90Ff95285a3419"; // My Mata Mask address
 
   it("should pass", async function () {
@@ -25,7 +25,6 @@ describe("TestUniswap", function () {
     tokenIn= await ethers.getContractAt("IERC20",wBtcAddress);
     tokenOut= await ethers.getContractAt("IERC20",daiAddress);
     const wBtcBalance = await tokenIn.balanceOf(wBtcHolderAddreess);
-    const balanceBefore = await tokenOut.balanceOf(TO);
     console.log('----------------------------------------------------------------')
     console.log('wBTC Balance : ',wBtcBalance);
     TestUniswap = await ethers.getContractFactory("TestUniswap");
@@ -37,6 +36,7 @@ describe("TestUniswap", function () {
     // Test approve() works as expected
     expect(allowance).to.equal(wBtcBalance);
 
+    const balanceBefore = await tokenOut.balanceOf(TO);
     await testUniswap.connect(signerWBTCHolder).swap(
       wBtcAddress,
       daiAddress,
