@@ -1,14 +1,23 @@
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
 # Uniswap-V2-SwapTokens
+
+Let's learn about DeFi. This repo explains how to trade an ERC20 token for another using a decentralized exchange called Uniswap.
+
+## Settings
+
+1. Install dependency
+
+   ```bash
+   yarn install
+   ```
+
+2. Fill up .env
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Run
+
+   ```bash
+   yarn hardhat test
+   ```
