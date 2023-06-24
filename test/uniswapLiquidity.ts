@@ -74,8 +74,8 @@ describe("TestUniswapLiquidity", function () {
         console.log("eventLength ", events.length);
 
         for (const event of events) {
-        const eventArgs = event.args;
-        console.log("eventArgs ", eventArgs);
+            const eventArgs = event.args;
+            console.log("eventArgs ", eventArgs);
         }
 
         tx = await testUniswapLiquidity.connect(owner).removeLiquidity(daiAddress, wethAddress);
@@ -84,8 +84,8 @@ describe("TestUniswapLiquidity", function () {
         console.log("eventLength ", events2.length);
 
         for (const event of events2) {
-        const eventArgs = event.args;
-        console.log("eventArgs ", eventArgs);
+            const eventArgs = event.args;
+            console.log("eventArgs ", eventArgs);
         }
     });
 });
