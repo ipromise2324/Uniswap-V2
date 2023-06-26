@@ -34,8 +34,6 @@ describe("TestUniswapLiquidity", function () {
         });
         // Make wDaiHolder the signer
         const signerDaiHolder = await ethers.getSigner(daiHolderAddress);
-        await weth.connect(signerWethHolder).transfer(ownerAddress,TOKEN_WETH_AMOUNT)
-        await dai.connect(signerDaiHolder).transfer(ownerAddress,TOKEN__DAI_AMOUNT)
         //const ownerWethBalance = await weth.balanceOf(ownerAddress);
         //console.log("Owner WETH Balance:", ownerWethBalance.toString());
         //const ownerDaiBalance = await dai.balanceOf(ownerAddress);
@@ -43,9 +41,11 @@ describe("TestUniswapLiquidity", function () {
         
         weth= await ethers.getContractAt("IERC20",wethAddress);
         dai= await ethers.getContractAt("IERC20",daiAddress);
-        const holderWethBalance = await weth.balanceOf(wethHolderAddress);
+        await weth.connect(signerWethHolder).transfer(ownerAddress,TOKEN_WETH_AMOUNT)
+        await dai.connect(signerDaiHolder).transfer(ownerAddress,TOKEN__DAI_AMOUNT)
+        //const holderWethBalance = await weth.balanceOf(wethHolderAddress);
         //console.log("Holder WETH Balance:", holderWethBalance.toString());
-        const holderDaiBalance = await dai.balanceOf(daiHolderAddress);
+        //const holderDaiBalance = await dai.balanceOf(daiHolderAddress);
         //console.log("Holder DAI Balance:", holderDaiBalance.toString());
 
         TestUniswapLiquidity = await ethers.getContractFactory("TestUniswapLiquidity");
@@ -71,7 +71,7 @@ describe("TestUniswapLiquidity", function () {
         const receipt = await tx.wait();
         console.log("=== add liquidity ===");
         const events = await testUniswapLiquidity.queryFilter(testUniswapLiquidity.filters.addLiquidityLog());
-        console.log("eventLength ", events.length);
+        //console.log("eventLength ", events.length);
 
         for (const event of events) {
             const eventArgs = event.args;
@@ -81,7 +81,7 @@ describe("TestUniswapLiquidity", function () {
         tx = await testUniswapLiquidity.connect(owner).removeLiquidity(daiAddress, wethAddress);
         console.log("=== remove liquidity ===");
         const events2 = await testUniswapLiquidity.queryFilter(testUniswapLiquidity.filters.removeLiquidityLog());
-        console.log("eventLength ", events2.length);
+        //console.log("eventLength ", events2.length);
 
         for (const event of events2) {
             const eventArgs = event.args;
